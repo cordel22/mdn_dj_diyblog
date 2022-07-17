@@ -1,5 +1,11 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
+from datetime import date
+
+
+
 # Create your models here.
 
 class Topic(models.Model):
@@ -46,11 +52,13 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         """Returns the URL to access a detail record for this blog Post, like with comments maybe?."""
-        return reverse('post-detail', args=[str(self.id)])
+        return reverse('blog-detail', args=[str(self.id)])
         
         
     class Meta:
         ordering = ['name', '-pubdatetime']
+        #   might not belong here to grant permission to create new
+        permissions = (("can_create_new", "Create a new post"),)
         
 
 import uuid # Required for unique Comment instance
@@ -74,6 +82,15 @@ class Comment(models.Model):
     content = models.TextField(max_length=1000, help_text='Enter the blog Post content')
     
     commdatetime = models.DateTimeField(auto_now=True)
+    
+    troller = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    '''
+    @property
+    def is_overdue(self):
+        """Determines if the book is overdue based on due date and current date."""
+        return bool(self.due_back and date.today() > self.due_back)
+    '''
     
     # LOAN_STATUS = (
         # ('m', 'Maintenance'),
@@ -111,7 +128,8 @@ class Author(models.Model):
 
     def get_absolute_url(self):
         """Returns the URL to access a particular Author instance."""
-        return reverse('author-detail', args=[str(self.id)])
+        #   return reverse('author-detail', args=[str(self.id)])
+        return reverse('blogger-detail', args=[str(self.id)])
 
     def __str__(self):
         """String for representing the Model object."""

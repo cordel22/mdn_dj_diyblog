@@ -1,0 +1,31 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>(5 word selected) Post List</h1>
+  {% if post_list %}
+  <ul>
+    {% for post in post_list %}
+      <li>
+		<!--	<a href="{{ book.get_absolute_url }}">{{ book.title }}</a> ({{book.author}})	-->
+        <a href="{{ post.get_absolute_url }}">{{ post.name }}</a> ({{post.author}})
+      </li>
+	  
+    {% endfor %}
+	
+  </ul>
+  {% else %}
+    <p>There are no published posts in the blog.</p>
+  {% endif %}
+  <div>
+	<a href="{% url 'blog_create' %}">Add a blog Post</a>
+	</div>
+  
+
+{% endblock %}
+
+
+
+
+
+
+

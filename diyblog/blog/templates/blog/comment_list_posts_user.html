@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Borrowed books</h1>
+
+    {% if comment_list %}
+    <ul>
+	  <!--
+      {% for bookinst in bookinstance_list %}
+      <li class="{% if bookinst.is_overdue %}text-danger{% endif %}">
+        <a href="{% url 'book-detail' bookinst.book.pk %}">{{bookinst.book.title}}</a> ({{ bookinst.due_back }})
+      </li>
+      {% endfor %}
+	  -->
+	  {% for comment in comment_list %}
+      <li class="text-success">
+        <a href="{% url 'post-detail' comment.post.pk %}">{{comment.post.name}}</a> ({{ comment.commdatetime }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    {% else %}
+      <p>There are no posts commented on.</p>
+    {% endif %}
+{% endblock %}

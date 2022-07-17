@@ -1,0 +1,41 @@
+ 
+ 
+{% extends "base_generic.html" %}
+
+{% block content %}
+ <div class="card-body">
+        {% if new_post %}
+        <div class="alert alert-success" role="alert">
+          Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Create post</h3>
+        <form method="post" style="margin-top: 1.3em;">
+          {{ post_form.as_p }}
+          {% csrf_token %}
+          <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+      </div>
+{% endblock %}                                           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

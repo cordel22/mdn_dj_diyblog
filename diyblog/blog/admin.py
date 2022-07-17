@@ -28,6 +28,7 @@ class PostAdmin(admin.ModelAdmin):
 # Register the Admin classes for BookInstance using the decorator
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
+    list_display = ('post', 'post', 'troller', 'commdatetime', 'id')
     list_filter = ('post', 'commdatetime')
     
     fieldsets = (

@@ -1,0 +1,50 @@
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Name: {{ author_detail.last_name }} {{ author_detail.first_name }}</h1>
+
+  <p><strong>Author:</strong> <a href="">{{ author_detail.author }}</a></p> <!-- author detail link not yet defined -->
+  
+  <p><strong>Date of Birth:</strong> {{ author_detail.date_of_birth }}</p>
+  <p><strong>Publication Date Time:</strong> {{ author_detail.pubdatetime }}</p>
+  <p><strong>Topic:</strong> {{ author_detail.topic.all|join:", " }}</p>
+
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Author's Blog Posts</h4>
+
+    {% for post in author_detail.post_set.all %}
+      <hr>
+	  <!--
+      <p class="{% if comment.status == 'a' %}text-success{% elif comment.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+	  
+        {{ comment.get_status_display }}
+      </p>
+      {% if comment.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{ .due_back }}</p>
+      {% endif %}
+      <p><strong>Imprint:</strong> {{ comment.imprint }}</p>
+      <p class="text-muted"><strong>Id:</strong> {{ comment.id }}</p>
+	  -->
+	  <p class="text-success">
+		Name of the blog Post: <a href="{{ post.get_absolute_url }}">{{ post.name }}</a>
+	  </p>
+	  
+	  <p class="text-success">
+		Posted on: {{ post.postdatetime }}
+	  </p>
+	  <!--	doesnt work but whaddafkkk	-->
+  	  <p class="text-success">
+		{% for topic in post.topic_set.all %}
+			<p class="text-success">
+				Topic of the Post: {{ topic }}
+			</p>
+		{% endfor %}
+	  </p>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,48 @@
+
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ post_detail.name }}</h1>
+
+  <p><strong>Author:</strong> <a href="">{{ post_detail.author }}</a></p> <!-- author detail link not yet defined -->
+  
+  <p><strong>Content:</strong> {{ post_detail.content }}</p>
+  <p><strong>Publication Date Time:</strong> {{ post_detail.pubdatetime }}</p>
+  <p><strong>Topic:</strong> {{ post_detail.topic.all|join:", " }}</p>
+	<div>
+	<a href="{% url 'comment_create' %}">Add a blog Post Comment</a>
+	</div>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Comments</h4>
+
+    {% for comment in post_detail.comment_set.all %}
+      <hr>
+	  <!--
+      <p class="{% if comment.status == 'a' %}text-success{% elif comment.status == 'm' %}text-danger{% else %}text-warning{% endif %}">
+	  
+        {{ comment.get_status_display }}
+      </p>
+      {% if comment.status != 'a' %}
+        <p><strong>Due to be returned:</strong> {{ .due_back }}</p>
+      {% endif %}
+      <p><strong>Imprint:</strong> {{ comment.imprint }}</p>
+      <p class="text-muted"><strong>Id:</strong> {{ comment.id }}</p>
+	  -->
+	  <p class="text-success">
+		{{ comment.content }}
+	  </p>
+	  	  <p class="text-success">
+		{{ comment.troll }}
+	  </p>
+	  	  <p class="text-success">
+		{{ comment.commdatetime }}
+	  </p>
+	  	  <p class="text-success">
+		{{ comment.id }}
+	  </p>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+
